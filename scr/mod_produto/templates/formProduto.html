@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Produto{% endblock %}
+{% block content %}
+<form name="formAdicionar" id="formAdicionar" class="" action="" method="POST">
+    <h1>Produto</h1>
+    <div class="form-group general-vertical-flex">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Nome" required maxlength="50">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Descricao" required maxlength="100">
+        </div>
+        <div class="col">
+            <input type="number" class="form-control" placeholder="Valor" required>
+        </div>
+        <div class="col">
+            <input type="file" class="form-control" placeholder="Foto" required>
+        </div>
+    </div>
+    <button type="submit" class="general-button">Registrar Produto</button>
+</form>
+{% endblock %}
