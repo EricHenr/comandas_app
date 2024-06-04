@@ -1,19 +1,49 @@
 {% extends "base.html" %}
+
 {% block title %}Cliente{% endblock %}
+
+{% set id = result[0].id_cliente if result else '0' %}
+{% set nome = result[0].nome if result else '' %}
+{% set cpf = result[0].cpf if result else '' %}
+{% set telefone = result[0].telefone if result else '' %}
+
 {% block content %}
-<form name="formAdicionar" id="formAdicionar" class="" action="" method="POST">
-    <h1>Cliente</h1>
-    <div class="form-group general-vertical-flex">
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Nome" required maxlength="50">
+<div class="container mt-5">
+    <h3 class="d-flex justify-content-center mb-5">Cliente - {{ "%s: %s" % ('Editar Registro', id) if result else
+        'Novo' }}</h3>
+    <form name="{{ 'formEditar' if result else 'formAdicionar' }}"
+        id="{{ 'formEditar' if result else 'formAdicionar' }}" class="row was-validated"
+        action="{{ url_for('cliente.edit') if result else url_for('cliente.insert') }}" method="POST">
+
+        <div class="form-group mb-3">
+            <label for="id" class="form-label">Código</label>
+            <input type="text" class="form-control" name="id" id="id" value="{{ id }}" placeholder="Código" readonly>
         </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="cpf" required maxlength="11">
+
+        <div class="form-group mb-3">
+            <label for="nome" class="form-label">Nome Cliente</label>
+            <input type="text" class="form-control" name="nome" id="nome" value="{{ nome }}" placeholder="Nome Cliente"
+                maxlength="100" autofocus required>
+            <div class="invalid-feedback">Por favor, insira o nome do cliente.</div>
         </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Telefone" required maxlength="15">
+
+        <div class="form-group mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" class="form-control" name="cpf" id="cpf" value="{{ cpf }}" placeholder="CPF"
+                maxlength="11" required>
+            <div class="invalid-feedback">Por favor, insira o CPF.</div>
         </div>
-    </div>
-    <button type="submit" class="general-button">Registrar Cliente</button>
-</form>
+
+        <div class="form-group mb-3">
+            <label for="telefone" class="form-label">Telefone</label>
+            <input type="tel" class="form-control" name="telefone" id="telefone" value="{{ telefone }}"
+                placeholder="Telefone" maxlength="15" required>
+            <div class="invalid-feedback">Por favor, insira o telefone.</div>
+        </div>
+
+        <button type='submit' name='salvaClienteDB' id='salvaClienteDB' class="btn btn-outline-success btn-lg">
+            <i class='fas fa-save'></i> Salvar
+        </button>
+    </form>
+</div>
 {% endblock %}
